@@ -1,5 +1,9 @@
 |-- .eslintrc.json
 |-- .gitignore
+|-- .vercel
+    |-- project.json
+    |-- README.txt
+|-- components.json
 |-- jsconfig.json
 |-- next.config.mjs
 |-- package-lock.json
@@ -8,6 +12,7 @@
 |-- public
     |-- file.svg
     |-- globe.svg
+    |-- GoogleIcon.png
     |-- next.svg
     |-- vercel.svg
     |-- window.svg
@@ -21,4 +26,20 @@
         |-- globals.css
         |-- layout.js
         |-- page.js
+    |-- components
+        |-- signin
+            |-- page.jsx
+        |-- signup
+            |-- page.jsx
+        |-- ui
+            |-- button.jsx
+            |-- card.jsx
+            |-- carousel.jsx
+            |-- form.jsx
+            |-- input.jsx
+            |-- label.jsx
+            |-- select.jsx
+            |-- switch.jsx
+    |-- lib
+        |-- utils.js
 |-- tailwind.config.js
