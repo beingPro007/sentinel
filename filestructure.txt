@@ -5,6 +5,9 @@
     |-- project.json
     |-- README.txt
 |-- app
+    |-- api
+    |-- dashboard
+        |-- page.jsx
     |-- favicon.ico
     |-- fonts
         |-- GeistMonoVF.woff
@@ -12,11 +15,9 @@
     |-- globals.css
     |-- layout.js
     |-- page.js
-    |-- pages
-        |-- dashboard
-            |-- dashboard.jsx
-        |-- signin
-            |-- Signin.jsx
+    |-- signin
+        |-- page.jsx
+    |-- _app.js
 |-- components
     |-- app-sidebar.jsx
     |-- icons
