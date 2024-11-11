@@ -19,7 +19,7 @@ export default function Signin() {
 
     const authUrl = "https://api.upstox.com/v2/login/authorization/dialog";
     const clientId = process.env.NEXT_PUBLIC_UPSTOX_CLIENT_ID;
-    const redirectUri = "https://authenticationsfinal.vercel.app/";
+    const redirectUri = "https://sentinel-gautam-ranas-projects.vercel.app/dashboard";
     const responseType = "code";
     const state =
       "RnJpIERlYyAxNiAyMDIyIDE1OjU4OjUxIEdNVCswNTMwIChJbmRpYSBTdGFuZGFyZCBUaW1lKQ%3D%3D";
