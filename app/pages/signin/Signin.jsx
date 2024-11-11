@@ -18,7 +18,7 @@ export function Signin() {
     console.log("Login with Upstox clicked");
 
     const authUrl = "https://api.upstox.com/v2/login/authorization/dialog";
-    const clientId = "55c81198-b5ec-46f7-84c7-e3eb9b04a7ab";
+    const clientId = "process.env.client_key";
     const redirectUri = "https://authenticationsfinal.vercel.app/";
     const responseType = "code";
     const state =
@@ -28,7 +28,7 @@ export function Signin() {
     const url = `${authUrl}?response_type=${responseType}&client_id=${clientId}&redirect_uri=${redirectUri}`;
 
     // Redirect the user to Upstox login
-    window.open(url);
+    window.location.href = url;
   };
 
   return (
@@ -36,7 +36,7 @@ export function Signin() {
       {/* Left side with logo and quote */}
       <div className="flex-1 bg-gray-900 text-white p-10 flex flex-col justify-between">
         <div>
-          <h1 className="text-xl font-semibold mb-4">💸 Sentinel 🤑</h1>
+          <h1 className="text-5xl font-semibold mb-4">💸 Sentinel 🤑</h1>
         </div>
         <blockquote className="text-gray-400 italic">
           “More Money Buys Happiness”
@@ -46,15 +46,15 @@ export function Signin() {
       </div>
 
       {/* Right side with Upstox login button */}
-      <div className="flex-1 flex justify-center items-center p-10">
+      <div className="flex-1 flex justify-center items-center p-10 ">
         <Card className="w-[350px]">
           <CardHeader>
-            <CardTitle>Login</CardTitle>
+            <CardTitle className="text-3xl">Login</CardTitle>
           </CardHeader>
           <CardContent className="flex flex-col items-center space-y-4">
             <button
               onClick={onSubmit}
-              className="w-full flex items-center justify-center"
+              className="w-full flex items-center justify-center border-separate"
             >
               <span className="text">Login With</span>
               <span>Upstox</span>
@@ -141,7 +141,6 @@ export function Signin() {
           transition: all 900ms cubic-bezier(0.48, 0, 0.12, 1);
         }
 
-        /* Click effect - scale down the button when clicked */
         button:active {
           transform: scale(0.98);
         }
