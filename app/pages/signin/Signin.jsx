@@ -9,12 +9,26 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { useState } from "react";
+import axios from "axios";
 
 export function Signin() {
   const form = useForm();
 
   const onSubmit = () => {
     console.log("Login with Upstox clicked");
+
+    const authUrl = "https://api.upstox.com/v2/login/authorization/dialog";
+    const clientId = "55c81198-b5ec-46f7-84c7-e3eb9b04a7ab";
+    const redirectUri = "https://authenticationsfinal.vercel.app/";
+    const responseType = "code";
+    const state =
+      "RnJpIERlYyAxNiAyMDIyIDE1OjU4OjUxIEdNVCswNTMwIChJbmRpYSBTdGFuZGFyZCBUaW1lKQ%3D%3D"; 
+
+    // Build the URL for Upstox login authorization
+    const url = `${authUrl}?response_type=${responseType}&client_id=${clientId}&redirect_uri=${redirectUri}`;
+
+    // Redirect the user to Upstox login
+    window.open(url);
   };
 
   return (
