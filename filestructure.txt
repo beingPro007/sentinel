@@ -1,3 +1,4 @@
+|-- .env
 |-- .eslintrc.json
 |-- .gitignore
 |-- .vercel
@@ -12,9 +13,12 @@
     |-- layout.js
     |-- page.js
     |-- pages
+        |-- dashboard
+            |-- dashboard.jsx
         |-- signin
             |-- Signin.jsx
 |-- components
+    |-- app-sidebar.jsx
     |-- icons
         |-- UpstoxIcon.js
     |-- ui
@@ -23,7 +27,14 @@
         |-- form.jsx
         |-- input.jsx
         |-- label.jsx
+        |-- separator.jsx
+        |-- sheet.jsx
+        |-- sidebar.jsx
+        |-- skeleton.jsx
+        |-- tooltip.jsx
 |-- components.json
+|-- hooks
+    |-- use-mobile.jsx
 |-- jsconfig.json
 |-- lib
     |-- utils.js

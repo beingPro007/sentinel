@@ -18,14 +18,14 @@ export function Signin() {
     console.log("Login with Upstox clicked");
 
     const authUrl = "https://api.upstox.com/v2/login/authorization/dialog";
-    const clientId = "process.env.client_key";
-    const redirectUri = "https://authenticationsfinal.vercel.app/";
+    const clientId = process.env.NEXT_PUBLIC_UPSTOX_CLIENT_ID; // Correct environment variable usage
+    const redirectUri = "https://authenticationsfinal.vercel.app/"; // Keep your redirect URI as it is
     const responseType = "code";
     const state =
-      "RnJpIERlYyAxNiAyMDIyIDE1OjU4OjUxIEdNVCswNTMwIChJbmRpYSBTdGFuZGFyZCBUaW1lKQ%3D%3D"; 
+      "RnJpIERlYyAxNiAyMDIyIDE1OjU4OjUxIEdNVCswNTMwIChJbmRpYSBTdGFuZGFyZCBUaW1lKQ%3D%3D";
 
     // Build the URL for Upstox login authorization
-    const url = `${authUrl}?response_type=${responseType}&client_id=${clientId}&redirect_uri=${redirectUri}`;
+    const url = `${authUrl}?response_type=${responseType}&client_id=${clientId}&redirect_uri=${redirectUri}&state=${state}`;
 
     // Redirect the user to Upstox login
     window.location.href = url;
