@@ -1,10 +1,9 @@
-import Image from "next/image";
-import { Signin } from "./pages/signin/Signin";
+import { Signin } from "./signin/page.jsx";
 
 export default function Home() {
   return (
     <div>
-      <Signin/>
+      <Signin />
     </div>
   );
 }

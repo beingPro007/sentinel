@@ -11,7 +11,7 @@ import {
 import { useState } from "react";
 import axios from "axios";
 
-export function Signin() {
+export default function Signin() {
   const form = useForm();
 
   const onSubmit = () => {
@@ -29,6 +29,7 @@ export function Signin() {
 
     // Redirect the user to Upstox login
     window.location.href = url;
+    
   };
 
   return (
