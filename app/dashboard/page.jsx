@@ -1,57 +1,50 @@
 "use client";
 import axios from "axios";
-import React, { useEffect } from "react";
+import React, { useState } from "react";
 import { useCookies } from "react-cookie";
-import { useSearchParams } from "next/navigation";
-import QueryString from "qs";
+import qs from "qs";
+import useSWR from "swr";
+
+const fetcher = async () => {
+  const data = qs.stringify({
+    redirect_uri: "https://sentinel-gautam-ranas-projects.vercel.app/dashboard",
+    client_secret: process.env.NEXT_PUBLIC_UPSTOX_CLIENT_SECRET,
+    client_id: process.env.NEXT_PUBLIC_UPSTOX_CLIENT_ID,
+    code: "abcd",
+    grant_type: "authorization_code",
+  });
+
+  const config = {
+    method: "post",
+    maxBodyLength: Infinity,
+    url: "https://api.upstox.com/v2/login/authorization/token",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+      Accept: "application/json",
+    },
+    data: data,
+  };
+
+  try {
+    const response = await axios(config);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    throw error;
+  }
+};
 
 export default function Dashboard() {
-  const [cookies, setCookie] = useCookies(["access_token", "refresh_token"]);
-  const searchParams = useSearchParams();
-  const code = searchParams.get("code");
+  const [cookies, setCookie] = useCookies(["access_token"]);
+  const [code, setCode] = useState("abcd");
 
-  useEffect(() => {
-    const onLoad = async () => {
-      if (!code) return; // Only execute if code is defined
+  const { data, error, isLoading } = useSWR(
+    "https://api.upstox.com/v2/login/authorization/token",
+    fetcher
+  );
 
-      try {
-        const data = QueryString.stringify({
-          code,
-          client_id: process.env.NEXT_PUBLIC_UPSTOX_CLIENT_ID,
-          client_secret: process.env.NEXT_PUBLIC_UPSTOX_CLIENT_SECRET,
-          grant_type: "authorization_code",
-          redirect_uri:
-            "https://sentinel-gautam-ranas-projects.vercel.app/dashboard",
-        });
+  if (error) return <div>Failed to load</div>;
+  if (isLoading) return <div>Loading...</div>;
 
-        const config = {
-          method: "post",
-          maxBodyLength: Infinity,
-          url: "https://api.upstox.com/v2/login/authorization/token",
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-            Accept: "application/json",
-          },
-          data,
-        };
-
-        const response = await axios(config);
-        console.log("Response data:", response.data);
-
-        // Setting cookies with actual token and expiration
-        const expires = new Date();
-        expires.setTime(expires.getTime() + response.data.expires_in * 1000);
-        setCookie("access_token", response.data.access_token, {
-          path: "/",
-          expires,
-        });
-      } catch (error) {
-        console.error("Request failed:", error);
-      }
-    };
-
-    onLoad();
-  }, [setCookie, code]);
-
-  return <div>Dashboard</div>;
+  return <div>Hello, {JSON.stringify(data)}</div>;
 }
