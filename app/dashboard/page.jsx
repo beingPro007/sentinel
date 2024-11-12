@@ -5,6 +5,7 @@ import qs from "qs";
 import useSWR from "swr";
 import { useEffect } from "react";
 
+// Fetcher function to get data
 const fetcher = async () => {
   const url = new URL(window.location.href);
   const code = url.searchParams.get("code");
@@ -45,18 +46,21 @@ export default function Dashboard() {
     fetcher
   );
 
+  // Effect to set the cookie after data is fetched
+  useEffect(() => {
+    if (data && data.access_token) {
+      const expires = new Date();
+      expires.setTime(expires.getTime() + data.expires_in * 1000);
+
+      setCookie("access_token", data.access_token, {
+        path: "/",
+        expires,
+      });
+    }
+  }, [data, setCookie]); // Only run when `data` changes
 
   if (error) return <div>Failed to load</div>;
   if (isLoading) return <div>Loading...</div>;
-  if(data){
-    const expires = new Date();
-    expires.setTime(expires.getTime() + 10000);
-
-    setCookie("access_token", data.access_token, {
-      path: "/",
-      expires,
-    });
-  }
 
   return <div>Hello, {JSON.stringify(data)}</div>;
 }
