@@ -45,20 +45,22 @@ const fetcher = async () => {
 
 export default function Dashboard() {
   const [cookies, setCookie] = useCookies(["access_token"]);
-  const { data, error, isLoading } = useSWR("upstox-token", fetcher); // Use a key ("upstox-token") for SWR
+  const { data, error, isLoading } = useSWR("upstox-token", fetcher);
 
   // Effect to set the cookie after data is fetched
   useEffect(() => {
     if (data && data.access_token) {
       const expires = new Date();
-      expires.setTime(expires.getTime() + data.expires_in * 1000);
+      expires.setTime(Date.now() + data.expires_in * 1000);
 
-      setCookie("access_token", data.access_token, {
-        path: "/",
-        expires,
-      });
+      // Check that `expires` is a valid date
+      if (!isNaN(expires.getTime())) {
+        setCookie("access_token", data.access_token, { path: "/", expires });
+      } else {
+        console.error("Invalid expires date for cookie.");
+      }
     }
-  }, [data, setCookie]); // Only run when `data` changes
+  }, [data, setCookie]);
 
   if (error) return <div>Failed to load: {error.message}</div>;
   if (isLoading) return <div>Loading...</div>;
