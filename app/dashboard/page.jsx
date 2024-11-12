@@ -9,7 +9,11 @@ import { useEffect } from "react";
 const fetcher = async () => {
   const url = new URL(window.location.href);
   const code = url.searchParams.get("code");
-  console.log(code);
+  console.log("Authorization Code: ", code); // Log for debugging
+
+  if (!code) {
+    throw new Error("Authorization code is missing");
+  }
 
   const data = qs.stringify({
     redirect_uri: "https://sentinel-gautam-ranas-projects.vercel.app/dashboard",
@@ -35,16 +39,13 @@ const fetcher = async () => {
     return response.data;
   } catch (error) {
     console.error("Error fetching data:", error);
-    throw error;
+    throw error; // Ensure that errors propagate
   }
 };
 
 export default function Dashboard() {
   const [cookies, setCookie] = useCookies(["access_token"]);
-  const { data, error, isLoading } = useSWR(
-    "https://api.upstox.com/v2/login/authorization/token",
-    fetcher
-  );
+  const { data, error, isLoading } = useSWR("upstox-token", fetcher); // Use a key ("upstox-token") for SWR
 
   // Effect to set the cookie after data is fetched
   useEffect(() => {
@@ -59,7 +60,7 @@ export default function Dashboard() {
     }
   }, [data, setCookie]); // Only run when `data` changes
 
-  if (error) return <div>Failed to load</div>;
+  if (error) return <div>Failed to load: {error.message}</div>;
   if (isLoading) return <div>Loading...</div>;
 
   return <div>Hello, {JSON.stringify(data)}</div>;
