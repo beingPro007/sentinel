@@ -45,20 +45,18 @@ export default function Dashboard() {
     fetcher
   );
 
-  useEffect(() => {
-    if (data && data.access_token && data.expires_in) {
-      const expires = new Date();
-      expires.setTime(expires.getTime() + data.expires_in * 1000);
-
-      setCookie("access_token", data.access_token, {
-        path: "/",
-        expires,
-      });
-    }
-  }, [data, setCookie]); // Runs when `data` is updated
 
   if (error) return <div>Failed to load</div>;
   if (isLoading) return <div>Loading...</div>;
+  if(data){
+    const expires = new Date();
+    expires.setTime(expires.getTime() + 10000);
+
+    setCookie("access_token", data.access_token, {
+      path: "/",
+      expires,
+    });
+  }
 
   return <div>Hello, {JSON.stringify(data)}</div>;
 }
