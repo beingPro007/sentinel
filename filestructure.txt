@@ -6,6 +6,12 @@
     |-- README.txt
 |-- app
     |-- api
+        |-- controller
+        |-- db
+        |-- middlewares
+        |-- models
+        |-- routes
+        |-- utils
     |-- dashboard
         |-- page.jsx
     |-- favicon.ico

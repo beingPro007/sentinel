@@ -1,16 +1,20 @@
 "use client";
 import axios from "axios";
-import React, { useState } from "react";
 import { useCookies } from "react-cookie";
 import qs from "qs";
 import useSWR from "swr";
+import { useEffect } from "react";
 
 const fetcher = async () => {
+  const url = new URL(window.location.href);
+  const code = url.searchParams.get("code");
+  console.log(code);
+
   const data = qs.stringify({
     redirect_uri: "https://sentinel-gautam-ranas-projects.vercel.app/dashboard",
     client_secret: process.env.NEXT_PUBLIC_UPSTOX_CLIENT_SECRET,
     client_id: process.env.NEXT_PUBLIC_UPSTOX_CLIENT_ID,
-    code: "abcd",
+    code: code,
     grant_type: "authorization_code",
   });
 
@@ -36,12 +40,22 @@ const fetcher = async () => {
 
 export default function Dashboard() {
   const [cookies, setCookie] = useCookies(["access_token"]);
-  const [code, setCode] = useState("abcd");
-
   const { data, error, isLoading } = useSWR(
     "https://api.upstox.com/v2/login/authorization/token",
     fetcher
   );
+
+  useEffect(() => {
+    if (data && data.access_token && data.expires_in) {
+      const expires = new Date();
+      expires.setTime(expires.getTime() + data.expires_in * 1000);
+
+      setCookie("access_token", data.access_token, {
+        path: "/",
+        expires,
+      });
+    }
+  }, [data, setCookie]); // Runs when `data` is updated
 
   if (error) return <div>Failed to load</div>;
   if (isLoading) return <div>Loading...</div>;
