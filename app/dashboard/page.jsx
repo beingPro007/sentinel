@@ -50,15 +50,8 @@ export default function Dashboard() {
   // Effect to set the cookie after data is fetched
   useEffect(() => {
     if (data && data.access_token) {
-      const expires = new Date();
-      expires.setTime(Date.now() + data.expires_in * 1000);
-
-      // Check that `expires` is a valid date
-      if (!isNaN(expires.getTime())) {
-        setCookie("access_token", data.access_token, { path: "/", expires });
-      } else {
-        console.error("Invalid expires date for cookie.");
-      }
+      // Set the access_token as a session cookie
+      setCookie("access_token", data.access_token, { path: "/" });
     }
   }, [data, setCookie]);
 
