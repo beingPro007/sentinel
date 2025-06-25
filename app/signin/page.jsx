@@ -1,6 +1,5 @@
 "use client";
 
-import { useForm } from "react-hook-form";
 import {
   Card,
   CardContent,
@@ -8,8 +7,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { useState } from "react";
-import axios from "axios";
+import { useForm } from "react-hook-form";
 
 export default function Signin() {
   const form = useForm();
@@ -19,15 +17,13 @@ export default function Signin() {
 
     const authUrl = "https://api.upstox.com/v2/login/authorization/dialog";
     const clientId = process.env.NEXT_PUBLIC_UPSTOX_CLIENT_ID;
-    const redirectUri = "https://sentinel-gautam-ranas-projects.vercel.app/dashboard";
+    const redirectUri = `${process.env.NEXT_PUBLIC_UPSTOX_REDIRECT_URI}`;
     const responseType = "code";
     const state =
       "RnJpIERlYyAxNiAyMDIyIDE1OjU4OjUxIEdNVCswNTMwIChJbmRpYSBTdGFuZGFyZCBUaW1lKQ%3D%3D";
 
-    // Build the URL for Upstox login authorization
     const url = `${authUrl}?response_type=${responseType}&client_id=${clientId}&redirect_uri=${redirectUri}&state=${state}`;
 
-    // Redirect the user to Upstox login
     window.location.href = url;
     
   };
@@ -40,13 +36,12 @@ export default function Signin() {
           <h1 className="text-5xl font-semibold mb-4">💸 Sentinel 🤑</h1>
         </div>
         <blockquote className="text-gray-400 italic">
-          “More Money Buys Happiness”
+          “Money Buys Happiness”
           <br />
           <span className="text-gray-500">Every Fuckin Millionaire</span>
         </blockquote>
       </div>
 
-      {/* Right side with Upstox login button */}
       <div className="flex-1 flex justify-center items-center p-10 ">
         <Card className="w-[350px]">
           <CardHeader>
