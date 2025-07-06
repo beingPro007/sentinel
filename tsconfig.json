@@ -28,7 +28,7 @@
     ".next/types/**/*.ts",
     "**/*.ts",
     "**/*.tsx"
-, "app/(authenticatedPages)/layout.jsx", "app/(authenticatedPages)/dashboard/page.jsx", "app/components/top-nav.jsx"  ],
+, "app/(authenticatedPages)/layout.jsx", "app/dashboard/page.jsx", "app/components/top-nav.jsx", "app/(authenticatedPages)/option-chain/page.jsx"  ],
   "exclude": [
     "node_modules"
   ]

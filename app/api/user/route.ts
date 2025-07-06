@@ -17,9 +17,7 @@ export async function GET(request: NextRequest) {
         Authorization: `Bearer ${accessToken}`,
         Accept: "application/json",
       },
-    });
-    console.log("Response is: ", response);
-    
+    });    
     return NextResponse.json(response.data, { status: 200 });
   } catch (error) {
     return NextResponse.json(

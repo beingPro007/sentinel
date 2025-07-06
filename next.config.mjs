@@ -9,7 +9,7 @@ const __dirname = dirname(__filename);
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     webpack(config) {
-        config.resolve.alias["@"] = path.resolve(__dirname, "app"); // or "src"
+        config.resolve.alias["@"] = path.resolve(__dirname, "app");
         return config;
     },
 };
