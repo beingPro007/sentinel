@@ -89,7 +89,7 @@ export default function OptionPage() {
     let timeout;
     const recursiveFetch = async () => {
       await fetchOptionsChain();
-      timeout = setTimeout(recursiveFetch, 300);
+      timeout = setTimeout(recursiveFetch, 500);
     };
     recursiveFetch();
     return () => clearTimeout(timeout);
